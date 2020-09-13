@@ -1,0 +1,2 @@
+include ':app', ':ikatagosdk'
+rootProject.name='IkatagoSDKDemo'
