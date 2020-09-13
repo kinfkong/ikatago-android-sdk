@@ -46,7 +46,6 @@ Example of the json response of the server info:
 ### 3. sends the gtp commands to the katago
 ```java
     // send GTP command
-    KatagoRunner katago = katagoStore.get(0);
     katago.sendGTPCommand("version\n");
     katago.sendGTPCommand("kata-analyze B 50\n");
 ```
