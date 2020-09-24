@@ -14,14 +14,26 @@ class DataCallbackImpl implements DataCallback {
     @Override
     public void callback(byte[] bytes) {
         // simply write the data to log
+        if (bytes == null) {
+            return;
+        }
         Log.d("GTP OUTPUT: ", new String(bytes));
     }
+
+    @Override
+    public void stderrCallback(byte[] bytes) {
+        if (bytes == null) {
+            return;
+        }
+        Log.d("GTP STDERR OUTPUT: ", new String(bytes));
+    }
+
 }
 public class MainActivity extends AppCompatActivity {
     private void runDemo() {
         final DataCallbackImpl callback = new DataCallbackImpl();
         // create the client
-        final Client client = new Client("", "aistudio", "kinfkong", "12345678");
+        final Client client = new Client("", "aistudio", "wce", "12345678");
         final List<KatagoRunner> katagoStore = new ArrayList<>();
         // start a thread to run katago
         new Thread(new Runnable() {
@@ -58,6 +70,28 @@ public class MainActivity extends AppCompatActivity {
                         KatagoRunner katago = katagoStore.get(0);
                         katago.sendGTPCommand("version\n");
                         katago.sendGTPCommand("kata-analyze B 50\n");
+                        break;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        // start another thread to send GTP command
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    while (true) {
+                        if (katagoStore.size() == 0) {
+                            Thread.sleep(1000);
+                            continue;
+                        }
+
+                        KatagoRunner katago = katagoStore.get(0);
+                        // stop in about 15 seconds later
+                        Thread.sleep(15000);
+                        katago.stop();
                         break;
                     }
                 } catch (Exception e) {
