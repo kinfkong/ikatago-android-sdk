@@ -56,8 +56,20 @@ class DataCallbackImpl implements DataCallback {
     @Override
     public void callback(byte[] bytes) {
         // simply write the data to log
+        if (bytes == null) {
+            return;
+        }
         Log.d("GTP OUTPUT: ", new String(bytes));
     }
+
+    @Override
+    public void stderrCallback(byte[] bytes) {
+        if (bytes == null) {
+            return;
+        }
+        Log.d("GTP STDERR OUTPUT: ", new String(bytes));
+    }
+
 }
 ```
 ## Author
