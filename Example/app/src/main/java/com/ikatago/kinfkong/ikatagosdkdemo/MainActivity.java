@@ -1,14 +1,14 @@
 package com.ikatago.kinfkong.ikatagosdkdemo;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.os.Bundle;
+import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import ikatagosdk.Client;
 import ikatagosdk.DataCallback;
 import ikatagosdk.KatagoRunner;
-import android.os.Bundle;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
 
 class DataCallbackImpl implements DataCallback {
     @Override
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private void runDemo() {
         final DataCallbackImpl callback = new DataCallbackImpl();
         // create the client
-        final Client client = new Client("", "aistudio", "wce", "12345678");
+        final Client client = new Client("", "all", "xybgs", "12345678");
         final List<KatagoRunner> katagoStore = new ArrayList<>();
         // start a thread to run katago
         new Thread(new Runnable() {
