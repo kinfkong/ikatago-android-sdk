@@ -21,6 +21,11 @@ class DataCallbackImpl implements DataCallback {
     }
 
     @Override
+    public void onReady() {
+
+    }
+
+    @Override
     public void stderrCallback(byte[] bytes) {
         if (bytes == null) {
             return;
@@ -68,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         // send GTP command
                         KatagoRunner katago = katagoStore.get(0);
+                        //katago.setClientID("xxxxx");
                         katago.sendGTPCommand("version\n");
                         katago.sendGTPCommand("kata-analyze B 50\n");
                         break;
